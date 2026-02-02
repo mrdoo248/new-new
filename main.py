@@ -22,11 +22,5 @@ def receive_cmd():
     return jsonify(last_cmd)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 3000))  # Replit PORT
     app.run(host="0.0.0.0", port=port)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 3000))  # Replit يعطي PORT تلقائي
-    # debug=True مفيد للتجربة
-    app.run(host="0.0.0.0", port=port, debug=True)
-
