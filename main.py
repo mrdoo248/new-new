@@ -1,5 +1,4 @@
-import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 
 app = Flask(__name__)
 
@@ -7,7 +6,7 @@ last_cmd = {}
 
 @app.route("/")
 def home():
-    return "Server is running ✅"
+    return Response("Server is running ✅", status=200)
 
 @app.route("/send", methods=["POST"])
 def send_cmd():
@@ -22,5 +21,6 @@ def receive_cmd():
     return jsonify(last_cmd)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 3000))  # Replit PORT
+    import os
+    port = int(os.environ.get("PORT", 3000))
     app.run(host="0.0.0.0", port=port)
