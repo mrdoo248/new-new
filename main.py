@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# آخر أمر محفوظ
 last_cmd = {}
 
 @app.route("/")
@@ -23,5 +22,5 @@ def receive_cmd():
     return jsonify(last_cmd)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # استخدم PORT من البيئة
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
