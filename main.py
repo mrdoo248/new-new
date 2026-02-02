@@ -3,17 +3,16 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# حفظ آخر أمر
 last_cmd = {}
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
     return "Server is running ✅"
 
 @app.route("/send", methods=["POST"])
 def send_cmd():
     global last_cmd
-    data = request.get_json(force=True)  # استخدام force=True لتفادي مشاكل Content-Type
+    data = request.get_json(silent=True)
     last_cmd = data
     print("📥 CMD received:", data)
     return jsonify({"status": "ok", "received": data})
@@ -23,6 +22,11 @@ def receive_cmd():
     return jsonify(last_cmd)
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))  # Replit يعطي PORT تلقائي
     # debug=True مفيد للتجربة
     app.run(host="0.0.0.0", port=port, debug=True)
+
